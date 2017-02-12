@@ -1,0 +1,8 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="min_image_size">64dp</dimen>
+    <dimen name="grid_spacing">1dp</dimen>
+    <dimen name="avatar_image_size">512px</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+</resources>

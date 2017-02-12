@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- main GUI, display following blogs of a specific account -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="eu.nioc.tumblrbrowse.activities.MainActivity"
+    android:orientation="vertical">
+
+    <!-- toolbar -->
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- following blogs in grid -->
+    <GridView
+        android:id="@+id/blogs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="@integer/blogs_grid_num_columns"
+        android:horizontalSpacing="@dimen/grid_spacing"
+        android:verticalSpacing="@dimen/grid_spacing">
+    </GridView>
+
+</LinearLayout>

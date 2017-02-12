@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Progress indicator -->
+    <item
+        android:id="@+id/miActionProgress"
+        android:title="@string/loading_label"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        app:actionLayout="@layout/progress_bar"
+        android:visible="false"/>
+
+    <!-- Account management button -->
+    <item
+        android:id="@+id/btn_accounts"
+        android:icon="@drawable/ic_account"
+        app:showAsAction="never"
+        android:title="@string/btn_accounts_label">
+    </item>
+
+    <!-- Refreshing blogs button -->
+    <item
+        android:id="@+id/btn_blogs"
+        android:icon="@drawable/ic_close"
+        app:showAsAction="never"
+        android:title="@string/btn_get_blogs_label">
+    </item>
+
+</menu>

@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Locally bookmark blog -->
+    <item
+        android:id="@+id/btn_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        app:showAsAction="never"
+        android:title="@string/menu_action_bookmark">
+    </item>
+
+    <!--Follow displayed blog -->
+    <item
+        android:id="@+id/btn_follow"
+        android:icon="@drawable/ic_heart"
+        app:showAsAction="never"
+        android:title="@string/menu_action_follow_blog">
+    </item>
+
+    <!--Unfollow displayed blog -->
+    <item
+        android:id="@+id/btn_unfollow"
+        android:icon="@drawable/ic_heart_off"
+        app:showAsAction="never"
+        android:title="@string/menu_action_unfollow_blog">
+    </item>
+
+    <!--Display blog information button -->
+    <item
+        android:id="@+id/btn_blog_info"
+        android:icon="@drawable/ic_account"
+        app:showAsAction="never"
+        android:title="@string/menu_action_get_blog_information">
+    </item>
+
+</menu>

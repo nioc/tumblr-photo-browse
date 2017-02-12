@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Add account button -->
+    <item
+        android:id="@+id/add_account"
+        android:icon="@drawable/ic_account_plus"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_action_add_account">
+    </item>
+
+    <!--Close webview button -->
+    <item
+        android:id="@+id/close_webview"
+        android:icon="@drawable/ic_close"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_action_close">
+    </item>
+
+</menu>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">TumblrBrowse</string>
+    <string name="post_dialog_title">Photo from %s</string>
+    <string name="btn_accounts_label">Accounts</string>
+    <string name="btn_get_blogs_label">Get blogs</string>
+    <string name="loading_label">Loading…</string>
+    <string name="account_activity_add_subtitle">Connect a blog</string>
+    <string name="account_activity_choose_subtitle">Choose a blog</string>
+    <string name="account_activity_title">Accounts</string>
+    <string name="main_activity_subtitle">Following blogs</string>
+    <string name="menu_action_add_account">Add account</string>
+    <string name="menu_action_close">Close</string>
+    <string name="menu_action_bookmark">Bookmark</string>
+    <string name="menu_action_follow_blog">Follow blog</string>
+    <string name="menu_action_unfollow_blog">Unfollow blog</string>
+    <string name="menu_action_get_blog_information">Display blog information</string>
+    <string name="alert_add_blog_success">Blog "%s" is successfully added</string>
+    <string name="alert_current_blog">Current blog is: %s</string>
+    <string name="alert_liked">liked</string>
+    <string name="alert_request_blog_error">Error during request: %s</string>
+    <plurals name="placeholder_text_note">
+        <item quantity="one">%d note</item>
+        <item quantity="other">%d notes</item>
+    </plurals>
+</resources>

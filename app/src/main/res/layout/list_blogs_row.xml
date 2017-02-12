@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- single row of the blogs list -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- blog avatar -->
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="@dimen/avatar_image_size"
+        android:minWidth="@dimen/avatar_image_size" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/avatar"
+        android:padding="@dimen/activity_margin">
+
+        <!-- blog title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="@android:style/Widget.Material.TextView"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:textSize="16sp" />
+
+        <!-- time ago since last update -->
+        <TextView
+            android:id="@+id/updated"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="@android:style/Widget.Material.Light.TextView"
+            android:textColor="@android:color/background_light"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

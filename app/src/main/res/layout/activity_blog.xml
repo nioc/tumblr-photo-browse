@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- display photos of a specific blog  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_blog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="eu.nioc.tumblrbrowse.activities.BlogActivity">
+
+    <!-- toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- photos in grid -->
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="@integer/photos_grid_num_columns"
+        android:id="@+id/posts"
+        android:horizontalSpacing="@dimen/grid_spacing"
+        android:verticalSpacing="@dimen/grid_spacing"
+        android:stretchMode="columnWidth"
+        android:layout_below="@+id/toolbar"/>
+
+    <!-- fullscreen pager for hosting the photo -->
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:id="@+id/pager"
+        android:background="@android:color/background_dark">
+
+        <!-- photo -->
+        <com.android.volley.toolbox.NetworkImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fullscreen_photo" />
+
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>
