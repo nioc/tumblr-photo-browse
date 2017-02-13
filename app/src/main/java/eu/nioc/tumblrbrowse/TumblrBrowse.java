@@ -7,7 +7,7 @@ import android.content.Intent;
 import eu.nioc.tumblrbrowse.activities.AccountActivity;
 
 /**
- * Created by nicolas on 04/02/17.
+ * Main application class, hosting constants and common functions
  */
 public class TumblrBrowse extends Application {
 
