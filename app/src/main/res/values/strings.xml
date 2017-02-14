@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TumblrBrowse</string>
     <string name="post_dialog_title">Photo from %s</string>
+    <string name="delete_account_title">Removal confirmation</string>
+    <string name="delete_account_message">Are you sure you want to remove your following blog: %s</string>
     <string name="btn_accounts_label">Accounts</string>
     <string name="btn_get_blogs_label">Get blogs</string>
     <string name="loading_label">Loading…</string>
@@ -18,6 +20,8 @@
     <string name="alert_current_blog">Current blog is: %s</string>
     <string name="alert_liked">liked</string>
     <string name="alert_request_blog_error">Error during request: %s</string>
+    <string name="delete_account_negative_label">No</string>
+    <string name="delete_account_positive_label">Yes, remove it</string>
     <plurals name="placeholder_text_note">
         <item quantity="one">%d note</item>
         <item quantity="other">%d notes</item>

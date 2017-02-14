@@ -1,5 +1,7 @@
 package eu.nioc.tumblrbrowse.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -82,6 +84,29 @@ public class AccountActivity extends AppCompatActivity {
                 Intent intent = new Intent(AccountActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+            }
+        });
+        accountListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //remove blog
+                final String selectedAccount = (String) accountListView.getItemAtPosition(position);
+                new AlertDialog.Builder(view.getContext())
+                        //prepare dialog
+                        .setIcon(R.drawable.ic_warning)
+                        .setTitle(R.string.delete_account_title)
+                        .setMessage(getString(R.string.delete_account_message, selectedAccount))
+                        //"Yes" button will remove blog
+                        .setPositiveButton(R.string.delete_account_positive_label, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                removeAccount(selectedAccount);
+                            }
+                        })
+                        //"No" button will simply close dialog
+                        .setNegativeButton(R.string.delete_account_negative_label, null)
+                        //show dialog
+                        .show();
+                return false;
             }
         });
 
@@ -235,5 +260,33 @@ public class AccountActivity extends AppCompatActivity {
             //notify user
             Toast.makeText(AccountActivity.this, getString(R.string.alert_add_blog_success, name), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Remove all the account stored data and update accounts list
+     * @param accountToRemove account name to be removed
+     */
+    private void removeAccount(String accountToRemove) {
+        ArrayList storedAccounts = getStoredAccounts();
+        if (storedAccounts.contains(accountToRemove)) {
+            //remove account from stored accounts and save list
+            storedAccounts.remove(accountToRemove);
+            SharedPreferences settings = getSharedPreferences(getString(R.string.app_name), 0);
+            SharedPreferences.Editor editor = settings.edit();
+            Gson gson = new Gson();
+            editor.putString("accounts", gson.toJson(storedAccounts));
+            editor.apply();
+            //update accounts list
+            this.accounts.clear();
+            if (storedAccounts.size() > 0) {
+                this.accounts.addAll(storedAccounts);
+            }
+            this.adapter.notifyDataSetChanged();
+        }
+        //remove account stored data
+        SharedPreferences settings = getSharedPreferences(accountToRemove, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.clear();
+        editor.apply();
     }
 }
