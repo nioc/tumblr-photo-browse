@@ -73,6 +73,7 @@ public class BlogsListAdapter extends BaseAdapter {
         //load blog avatar with Picasso lib and fit it into ImageView
         Picasso.with(context)
                 .load(blogElement.avatarUrl)
+                .noFade()
                 .placeholder(R.drawable.ic_sync)
                 .error(R.drawable.ic_warning)
                 .fit()

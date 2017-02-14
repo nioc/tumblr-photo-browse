@@ -4,7 +4,7 @@
     <string name="delete_account_title">Removal confirmation</string>
     <string name="delete_account_message">Are you sure you want to remove your following blog: %s</string>
     <string name="btn_accounts_label">Accounts</string>
-    <string name="btn_get_blogs_label">Get blogs</string>
+    <string name="btn_get_blogs_label">Refresh following blogs</string>
     <string name="loading_label">Loading…</string>
     <string name="account_activity_add_subtitle">Connect a blog</string>
     <string name="account_activity_choose_subtitle">Choose a blog</string>
