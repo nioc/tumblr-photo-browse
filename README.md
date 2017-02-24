@@ -1,4 +1,7 @@
 # Tumblr Photo Browse
+[![Build Status](https://travis-ci.org/nioc/tumblr-photo-browse.svg?branch=master)](https://travis-ci.org/nioc/tumblr-photo-browse)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+
 Tumblr Photo Browse is an open source Android application for browsing photos posted on [Tumblr](https://www.tumblr.com).
 
 ## Goal
