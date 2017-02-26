@@ -1,27 +1,44 @@
 <resources>
+    <!-- application -->
     <string name="app_name">TumblrBrowse</string>
+    <!-- photo dialog -->
     <string name="post_dialog_title">Photo from %s</string>
+    <!-- account dialog -->
     <string name="delete_account_title">Removal confirmation</string>
     <string name="delete_account_message">Are you sure you want to remove your following blog: %s</string>
+    <!-- main menu -->
     <string name="btn_accounts_label">Accounts</string>
     <string name="btn_get_blogs_label">Refresh following blogs</string>
     <string name="loading_label">Loading…</string>
+    <!-- account activity toolbar -->
     <string name="account_activity_add_subtitle">Connect a blog</string>
     <string name="account_activity_choose_subtitle">Choose a blog</string>
     <string name="account_activity_title">Accounts</string>
+    <!-- main toolbar -->
     <string name="main_activity_subtitle">Following blogs</string>
+    <!-- account menu -->
     <string name="menu_action_add_account">Add account</string>
     <string name="menu_action_close">Close</string>
+    <!-- blog menu -->
     <string name="menu_action_bookmark">Bookmark</string>
     <string name="menu_action_follow_blog">Follow blog</string>
     <string name="menu_action_unfollow_blog">Unfollow blog</string>
     <string name="menu_action_get_blog_information">Display blog information</string>
+    <!-- account management -->
     <string name="alert_add_blog_success">Blog "%s" is successfully added</string>
     <string name="alert_current_blog">Current blog is: %s</string>
-    <string name="alert_liked">liked</string>
+    <string name="alert_liked">Liked</string>
     <string name="alert_request_blog_error">Error during request: %s</string>
     <string name="delete_account_negative_label">No</string>
     <string name="delete_account_positive_label">Yes, remove it</string>
+    <!-- (un)follow blog -->
+    <string name="unfollow_blog_title">Unfollow blog</string>
+    <string name="unfollow_blog_confirm">Are you sure wou want unfollow \"%s\" blog?</string>
+    <string name="unfollow_blog_confirm_yes">Yes, unfollow this blog!</string>
+    <string name="unfollow_blog_confirm_no">No</string>
+    <string name="alert_blog_followed">You\'re now following \"%s\" blog</string>
+    <string name="alert_blog_unfollowed">You\'re no longer following \"%s\" blog</string>
+    <!-- post notes -->
     <plurals name="placeholder_text_note">
         <item quantity="one">%d note</item>
         <item quantity="other">%d notes</item>

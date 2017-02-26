@@ -30,6 +30,7 @@ import eu.nioc.tumblrbrowse.BuildConfig;
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.adapters.PostsListAdapter;
 import eu.nioc.tumblrbrowse.models.UnitPhotoPost;
+import eu.nioc.tumblrbrowse.services.FollowBlog;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogPosts;
 import eu.nioc.tumblrbrowse.services.LikeBlogPost;
 import uk.co.senab.photoview.PhotoView;
@@ -155,9 +156,37 @@ public class BlogActivity extends AppCompatActivity {
                 return true;
 
             case R.id.btn_follow:
+                new FollowBlog(BlogActivity.this, true).execute(
+                        BuildConfig.TUMBLR_API_CONSUMER_KEY,
+                        BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                        oauthToken,
+                        oauthVerifier,
+                        this.blogName
+                );
                 return true;
 
             case R.id.btn_unfollow:
+                new AlertDialog.Builder(this)
+                        //prepare dialog
+                        .setIcon(R.drawable.ic_warning)
+                        .setTitle(R.string.unfollow_blog_title)
+                        .setMessage(getString(R.string.unfollow_blog_confirm, blogName))
+                        //"Yes" button will execute a network request
+                        .setPositiveButton(R.string.unfollow_blog_confirm_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                new FollowBlog(BlogActivity.this, false).execute(
+                                        BuildConfig.TUMBLR_API_CONSUMER_KEY,
+                                        BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                                        oauthToken,
+                                        oauthVerifier,
+                                        blogName
+                                );
+                            }
+                        })
+                        //Do nothing
+                        .setNegativeButton(R.string.unfollow_blog_confirm_no, null)
+                        //show dialog
+                        .show();
                 return true;
 
             case R.id.btn_blog_info:
