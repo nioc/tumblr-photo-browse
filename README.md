@@ -11,6 +11,13 @@ Providing a Tumblr application:
 - allow multi accounts,
 - without annoying ads.
 
+Some functions made with love:
+- see recently updated blogs,
+- browse photos posts,
+- like a post,
+- navigate to original blog,
+- follow and unfollow blogs.
+
 ## Installation and usage
 
 #### 0. Common software dependencies

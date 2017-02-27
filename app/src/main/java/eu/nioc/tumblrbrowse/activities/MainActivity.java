@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //request a blogs refresh on startup
+        getFollowings();
     }
 
     @Override
@@ -108,14 +111,16 @@ public class MainActivity extends AppCompatActivity {
         String oauthToken = settings.getString("oauthToken", null);
         String oauthVerifier = settings.getString("oauthVerifier", null);
 
-        new GetTumblrBlogs(this).execute(
+        new GetTumblrBlogs(this, blogs).execute(
                 BuildConfig.TUMBLR_API_CONSUMER_KEY,
                 BuildConfig.TUMBLR_API_CONSUMER_SECRET,
                 oauthToken,
                 oauthVerifier
         );
 
-        actionProgressItem.setVisible(true);
+        if (actionProgressItem != null) {
+            actionProgressItem.setVisible(true);
+        }
     }
 
     /**
@@ -135,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
         this.blogs.clear();
         this.blogs.addAll(blogs);
         blogsListAdapter.notifyDataSetChanged();
-        actionProgressItem.setVisible(false);
+        if (actionProgressItem != null) {
+            actionProgressItem.setVisible(false);
+        }
     }
 }

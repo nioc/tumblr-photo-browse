@@ -8,6 +8,8 @@ import com.tumblr.jumblr.JumblrClient;
 import com.tumblr.jumblr.types.Blog;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +25,11 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
 
     private Activity activity;
     private Exception exception;
+    private List<BlogElement> previousBlogs;
 
-    public GetTumblrBlogs(MainActivity activity) {
+    public GetTumblrBlogs(MainActivity activity, List<BlogElement> blogs) {
         this.activity = activity;
+        this.previousBlogs = blogs;
     }
 
     protected List<BlogElement> doInBackground(String... params) {
@@ -36,25 +40,42 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
             client.setToken(params[2], params[3]);
 
             //get followed blogs (including avatar in specified size)
-            int avatarSize = activity.getResources().getInteger(R.integer.blog_avatar_pixels_size);
+            final int AVATAR_SIZE = activity.getResources().getInteger(R.integer.blog_avatar_pixels_size);
+            final int LIMIT = 20;
 
             int offset = 0;
             List<Blog> blogs;
+
             do {
                 Map<String, String> options = new HashMap<>();
                 options.put("offset", String.valueOf(offset));
+                options.put("limit", String.valueOf(LIMIT));
                 blogs = client.userFollowing(options);
                 for (Blog blog : blogs) {
                     BlogElement blogElement = new BlogElement();
                     blogElement.title = blog.getTitle();
-                    blogElement.avatarUrl = blog.avatar(avatarSize);
                     blogElement.name = blog.getName();
                     blogElement.updated = blog.getUpdated();
+                    int index = this.previousBlogs.indexOf(blogElement);
+                    //request avatar only for new blogs
+                    if (index == -1) {
+                        blogElement.avatarUrl = blog.avatar(AVATAR_SIZE);
+                    } else {
+                        blogElement.avatarUrl = this.previousBlogs.get(index).avatarUrl;
+                    }
                     localBlogs.add(blogElement);
                 }
                 offset += blogs.size();
                 //repeat request if response include 20 blogs
-            } while (blogs.size() == 20);
+            } while (blogs.size() == LIMIT);
+
+            //order by updated timestamp, newest first
+            Collections.sort(localBlogs, new Comparator<BlogElement>() {
+                @Override
+                public int compare(BlogElement o1, BlogElement o2) {
+                    return (int) (o2.updated - o1.updated);
+                }
+            });
 
         } catch (Exception e) {
             exception = e;
