@@ -63,7 +63,10 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
                     } else {
                         blogElement.avatarUrl = this.previousBlogs.get(index).avatarUrl;
                     }
-                    localBlogs.add(blogElement);
+                    //add blog only if it is not already in list (Tumblr issue when a followed blog is deactivated)
+                    if (!localBlogs.contains(blogElement)) {
+                        localBlogs.add(blogElement);
+                    }
                 }
                 offset += blogs.size();
                 //repeat request if response include 20 blogs
