@@ -21,9 +21,17 @@
     <!-- Refreshing blogs button -->
     <item
         android:id="@+id/btn_blogs"
-        android:icon="@drawable/ic_close"
+        android:icon="@drawable/ic_sync"
         app:showAsAction="never"
         android:title="@string/btn_get_blogs_label">
+    </item>
+
+    <!-- See current blog posts -->
+    <item
+        android:id="@+id/btn_my_blog_posts"
+        android:icon="@drawable/ic_account"
+        app:showAsAction="never"
+        android:title="@string/btn_my_blog_posts_label">
     </item>
 
 </menu>

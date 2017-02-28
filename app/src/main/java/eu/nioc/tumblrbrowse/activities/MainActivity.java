@@ -90,11 +90,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btn_accounts:
-                ((TumblrBrowse)getApplication()).goToAccount();
+                //account management (choose, add or remove)
+                ((TumblrBrowse) getApplication()).goToAccount();
                 return true;
 
             case R.id.btn_blogs:
+                //refresh followed blogs
                 getFollowings();
+                return true;
+
+            case R.id.btn_my_blog_posts:
+                //see current blog posts
+                Intent intent = new Intent(this, BlogActivity.class);
+                intent.putExtra(TumblrBrowse.BT_BLOG_NAME, currentBlog);
+                intent.putExtra(TumblrBrowse.BT_BLOG_TITLE, currentBlog);
+                startActivity(intent);
                 return true;
 
             default:

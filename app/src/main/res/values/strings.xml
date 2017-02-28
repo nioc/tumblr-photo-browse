@@ -9,6 +9,7 @@
     <!-- main menu -->
     <string name="btn_accounts_label">Accounts</string>
     <string name="btn_get_blogs_label">Refresh following blogs</string>
+    <string name="btn_my_blog_posts_label">My posts</string>
     <string name="loading_label">Loading…</string>
     <!-- account activity toolbar -->
     <string name="account_activity_add_subtitle">Connect a blog</string>
