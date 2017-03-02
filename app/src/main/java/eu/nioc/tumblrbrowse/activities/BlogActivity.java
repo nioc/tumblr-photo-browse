@@ -34,6 +34,7 @@ import eu.nioc.tumblrbrowse.services.FollowBlog;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogPosts;
 import eu.nioc.tumblrbrowse.services.LikeBlogPost;
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 import static eu.nioc.tumblrbrowse.TumblrBrowse.BT_BLOG_NAME;
 import static eu.nioc.tumblrbrowse.TumblrBrowse.BT_BLOG_TITLE;
@@ -282,9 +283,9 @@ public class BlogActivity extends AppCompatActivity {
                     .into(photoView);
             container.addView(photoView, ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
 
-            photoView.setOnLongClickListener(new View.OnLongClickListener() {
+            photoView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                 @Override
-                public boolean onLongClick(final View view) {
+                public void onViewTap(final View view, float x, float y) {
                     //on photo click, display modal for acting on post
                     final UnitPhotoPost photo = sDrawables.get(position);
                     new AlertDialog.Builder(view.getContext())
@@ -323,7 +324,6 @@ public class BlogActivity extends AppCompatActivity {
                             })
                             //show dialog
                             .show();
-                    return false;
                 }
             });
             return photoView;
