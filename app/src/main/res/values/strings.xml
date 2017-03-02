@@ -2,7 +2,7 @@
     <!-- application -->
     <string name="app_name">TumblrBrowse</string>
     <!-- photo dialog -->
-    <string name="post_dialog_title">Photo from %s</string>
+    <string name="post_dialog_title">%s</string>
     <!-- account dialog -->
     <string name="delete_account_title">Removal confirmation</string>
     <string name="delete_account_message">Are you sure you want to remove your following blog: %s</string>

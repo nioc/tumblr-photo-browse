@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +58,6 @@ public class BlogActivity extends AppCompatActivity {
 
         //get parameters from intent
         Intent intent = getIntent();
-        String blogTitle = intent.getStringExtra(BT_BLOG_TITLE);
         blogName = intent.getStringExtra(BT_BLOG_NAME);
 
         if (blogName == null) {
@@ -99,7 +97,7 @@ public class BlogActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 //click on a photo, open view pager in fullscreen
-                findViewById(R.id.pager).setVisibility(View.VISIBLE);
+                findViewById(R.id.pagerLayout).setVisibility(View.VISIBLE);
                 findViewById(R.id.posts).setVisibility(View.GONE);
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
                 toolbar.setVisibility(View.GONE);
@@ -109,14 +107,20 @@ public class BlogActivity extends AppCompatActivity {
                 mViewPager.setAdapter(photoPagerAdapter);
                 //set the view pager on the selected photo
                 mViewPager.setCurrentItem(position);
+                //update photo data and listeners
+                updateFullscreenPhotoData(posts.get(position));
+
                 mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
                     @Override
                     public void onPageSelected(int position) {
+                        //update photo data and listeners
+                        updateFullscreenPhotoData(posts.get(position));
+
+                        //check if new request is required
                         if (position == posts.size() - 1) {
-                            Log.d("DRAWER", "END");
                             requestPosts();
                         }
                     }
@@ -200,7 +204,7 @@ public class BlogActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (findViewById(R.id.pager).getVisibility() == View.VISIBLE) {
+        if (findViewById(R.id.pagerLayout).getVisibility() == View.VISIBLE) {
             //handle the back action on fullscreen photo
             closePhoto();
             return;
@@ -236,7 +240,7 @@ public class BlogActivity extends AppCompatActivity {
      */
     private void closePhoto() {
         findViewById(R.id.posts).setVisibility(View.VISIBLE);
-        findViewById(R.id.pager).setVisibility(View.GONE);
+        findViewById(R.id.pagerLayout).setVisibility(View.GONE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         toolbar.setVisibility(View.VISIBLE);
     }
@@ -257,13 +261,60 @@ public class BlogActivity extends AppCompatActivity {
     }
 
     /**
+     * Update information displayed on fullscreen pager
+     * @param selectedPhoto the photo displayed on fullscreen pager
+     */
+    private void updateFullscreenPhotoData(final UnitPhotoPost selectedPhoto) {
+        String origin = selectedPhoto.getRebloggedFromName();
+        if (origin == null) {
+            //photo is from the current blog, get its name
+            origin = selectedPhoto.getBlogName();
+        }
+        ((TextView) findViewById(R.id.photo_origin)).setText(getString(R.string.post_dialog_title, origin));
+        ((TextView) findViewById(R.id.photo_timestamp)).setText(DateUtils.getRelativeTimeSpanString(selectedPhoto.getTimestamp()*1000, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+        findViewById(R.id.btn_photo_like).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //"Like" button will execute a network request
+                new LikeBlogPost(BlogActivity.this).execute(
+                        BuildConfig.TUMBLR_API_CONSUMER_KEY,
+                        BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                        oauthToken,
+                        oauthVerifier,
+                        selectedPhoto.getId().toString(),
+                        selectedPhoto.reblog_key
+                );
+            }
+        });
+        findViewById(R.id.btn_photo_original).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open the original blog of the photo in new activity
+                Intent intent = new Intent(view.getContext(), BlogActivity.class);
+                intent.putExtra(BT_BLOG_NAME, selectedPhoto.getRebloggedFromName());
+                intent.putExtra(BT_BLOG_TITLE, selectedPhoto.getRebloggedFromName());
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.btn_photo_caption).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //display post caption
+                new AlertDialog.Builder(view.getContext())
+                        .setMessage(Html.fromHtml(selectedPhoto.getCaption()))
+                        .show();
+            }
+        });
+    }
+
+    /**
      * Local class extending PagerAdapter for include image loading and listener
      */
     private class PhotoPagerAdapter extends PagerAdapter {
 
         private List<UnitPhotoPost> sDrawables;
 
-        public PhotoPagerAdapter(List<UnitPhotoPost> listData) {
+        PhotoPagerAdapter(List<UnitPhotoPost> listData) {
             sDrawables = listData;
         }
 
@@ -286,46 +337,16 @@ public class BlogActivity extends AppCompatActivity {
             photoView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
                 @Override
                 public void onViewTap(final View view, float x, float y) {
-                    //on photo click, display modal for acting on post
-                    final UnitPhotoPost photo = sDrawables.get(position);
-                    new AlertDialog.Builder(view.getContext())
-                            //prepare dialog
-                            .setIcon(R.drawable.ic_camera)
-                            .setTitle(getString(R.string.post_dialog_title, photo.getRebloggedFromName()))
-                            .setMessage(DateUtils.getRelativeTimeSpanString(photo.getTimestamp()*1000, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS) + "\n" + Html.fromHtml(photo.getCaption()))
-                            //"Like" post button will execute a network request
-                            .setPositiveButton("Like", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    new LikeBlogPost(BlogActivity.this).execute(
-                                            BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                                            BuildConfig.TUMBLR_API_CONSUMER_SECRET,
-                                            oauthToken,
-                                            oauthVerifier,
-                                            photo.getId().toString(),
-                                            photo.reblog_key
-                                    );
-                                }
-                            })
-                            //"Save" photo button will locally save the photo
-                            .setNeutralButton("Save", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //@TODO : add download and store media
-                                    Toast.makeText(getApplicationContext(), "You clicked on Save", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            //Open the original blog of the photo
-                            .setNegativeButton("View origin blog", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(view.getContext(), BlogActivity.class);
-                                    intent.putExtra(BT_BLOG_NAME, photo.getRebloggedFromName());
-                                    intent.putExtra(BT_BLOG_TITLE, photo.getRebloggedFromName());
-                                    startActivity(intent);
-                                }
-                            })
-                            //show dialog
-                            .show();
+                    //on photo click, display or hide data section
+                    View photoDataView = findViewById(R.id.photo_data);
+                    if (photoDataView.getVisibility() == View.VISIBLE) {
+                        photoDataView.setVisibility(View.GONE);
+                    } else {
+                        photoDataView.setVisibility(View.VISIBLE);
+                    }
                 }
             });
+
             return photoView;
         }
 

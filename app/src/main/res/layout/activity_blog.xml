@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- display photos of a specific blog  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_blog"
     android:layout_width="match_parent"
@@ -25,20 +26,97 @@
         android:stretchMode="columnWidth"
         android:layout_below="@+id/toolbar"/>
 
-    <!-- fullscreen pager for hosting the photo -->
-    <android.support.v4.view.ViewPager
+    <!-- fullscreen photo layout -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:id="@+id/pager"
-        android:background="@android:color/background_dark">
+        android:id="@+id/pagerLayout">
 
-        <!-- photo -->
-        <com.android.volley.toolbox.NetworkImageView
+        <!-- fullscreen pager for hosting the photo -->
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fullscreen_photo" />
+            android:id="@+id/pager"
+            android:background="@android:color/background_dark">
 
-    </android.support.v4.view.ViewPager>
+            <!-- photo -->
+            <com.android.volley.toolbox.NetworkImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fullscreen_photo"/>
+
+        </android.support.v4.view.ViewPager>
+
+            <!-- photo data layout -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/background_gradient_bottom"
+                android:id="@+id/photo_data"
+                android:gravity="bottom">
+
+                <!-- text data -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <!-- origin of the photo -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/photo_origin"
+                        android:textColor="@android:color/background_light"
+                        android:textStyle="normal|bold" />
+
+                    <!-- photo timestamp -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/photo_timestamp"
+                        android:textColor="@android:color/background_light" />
+                </LinearLayout>
+
+                <!-- note button -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_photo_caption"
+                    app:srcCompat="@drawable/ic_message"
+                    android:minHeight="@dimen/legend_icon_size"
+                    android:minWidth="@dimen/legend_icon_size"
+                    android:layout_marginStart="@dimen/button_margin"
+                    android:layout_marginEnd="@dimen/button_margin"/>
+
+                <!-- original blog button -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_photo_original"
+                    app:srcCompat="@drawable/ic_account"
+                    android:minHeight="@dimen/legend_icon_size"
+                    android:minWidth="@dimen/legend_icon_size"
+                    android:layout_marginStart="@dimen/button_margin"
+                    android:layout_marginEnd="@dimen/button_margin" />
+
+                <!-- like button -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_photo_like"
+                    app:srcCompat="@drawable/ic_heart_outline"
+                    android:minHeight="@dimen/legend_icon_size"
+                    android:minWidth="@dimen/legend_icon_size"
+                    android:layout_marginStart="@dimen/button_margin"
+                    android:layout_marginEnd="@dimen/button_margin"
+                    android:tint="@android:color/background_light" />
+
+            </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

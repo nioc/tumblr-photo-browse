@@ -5,4 +5,6 @@
     <dimen name="grid_spacing">1dp</dimen>
     <dimen name="avatar_image_size">512px</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="legend_icon_size">24dp</dimen>
+    <dimen name="button_margin">8dp</dimen>
 </resources>
