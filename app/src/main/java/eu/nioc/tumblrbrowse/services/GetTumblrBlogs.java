@@ -58,8 +58,12 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
                     blogElement.updated = blog.getUpdated();
                     int index = this.previousBlogs.indexOf(blogElement);
                     //request avatar only for new blogs
-                    if (index == -1) {
-                        blogElement.avatarUrl = blog.avatar(AVATAR_SIZE);
+                    if (index == -1 || this.previousBlogs.get(index).avatarUrl == null) {
+                        try {
+                            blogElement.avatarUrl = blog.avatar(AVATAR_SIZE);
+                        } catch (Exception e) {
+                            blogElement.avatarUrl = null;
+                        }
                     } else {
                         blogElement.avatarUrl = this.previousBlogs.get(index).avatarUrl;
                     }
