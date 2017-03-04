@@ -1,5 +1,6 @@
 # Tumblr Photo Browse
 [![Build Status](https://travis-ci.org/nioc/tumblr-photo-browse.svg?branch=master)](https://travis-ci.org/nioc/tumblr-photo-browse)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d6272ccb74534606937d980575c9a91c)](https://www.codacy.com/app/nioc/tumblr-photo-browse?utm_source=github.com&utm_medium=referral&utm_content=nioc/tumblr-photo-browse&utm_campaign=Badge_Grade)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 Tumblr Photo Browse is an open source Android application for browsing photos posted on [Tumblr](https://www.tumblr.com).
@@ -66,3 +67,4 @@ This project uses the following:
 - [Picasso](https://github.com/square/picasso) (Apache License 2.0)
 - [ScribeJava](https://github.com/scribejava/scribejava) (MIT)
 - [Gson](https://github.com/google/gson/) (Apache License 2.0)
+- [Greedo Layout for Android](https://github.com/500px/greedo-layout-for-android) (MIT)

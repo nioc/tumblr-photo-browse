@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -15,11 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 
+import com.fivehundredpx.greedolayout.GreedoLayoutManager;
+import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -90,59 +90,31 @@ public class BlogActivity extends AppCompatActivity {
         requestPosts();
 
         //set adapter
-        GridView postsListView = (GridView) findViewById(R.id.posts);
         postsListAdapter = new PostsListAdapter(this, posts);
+        //set layout manager with wished row height
+        final GreedoLayoutManager layoutManager = new GreedoLayoutManager(postsListAdapter);
+        layoutManager.setMaxRowHeight(getResources().getInteger(R.integer.photo_max_row_height));
+        //set view
+        RecyclerView postsListView = (RecyclerView) findViewById(R.id.posts);
+        postsListView.setLayoutManager(layoutManager);
         postsListView.setAdapter(postsListAdapter);
-        postsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                //click on a photo, open view pager in fullscreen
-                findViewById(R.id.pagerLayout).setVisibility(View.VISIBLE);
-                findViewById(R.id.posts).setVisibility(View.GONE);
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-                toolbar.setVisibility(View.GONE);
 
-                ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
-                photoPagerAdapter = new PhotoPagerAdapter(posts);
-                mViewPager.setAdapter(photoPagerAdapter);
-                //set the view pager on the selected photo
-                mViewPager.setCurrentItem(position);
-                //update photo data and listeners
-                updateFullscreenPhotoData(posts.get(position));
-
-                mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        //update photo data and listeners
-                        updateFullscreenPhotoData(posts.get(position));
-
-                        //check if new request is required
-                        if (position == posts.size() - 1) {
-                            requestPosts();
-                        }
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {}
-                });
-            }
-        });
+        //add spacing between images
+        postsListView.addItemDecoration(new GreedoSpacingItemDecoration(getResources().getInteger(R.integer.photo_spacing)));
 
         //prepare the infinite scroll of photos list
-        postsListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        postsListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-            {
-                if (!isRequesting && hasMorePosts && (firstVisibleItem + visibleItemCount >= totalItemCount)) {
-                    //user has reached the end of scroll, if there are more posts to display, request its
-                    requestPosts();
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (!isRequesting && hasMorePosts) {
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+                    if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                        //user has reached the end of scroll, if there are more posts to display, request its
+                        requestPosts();
+                    }
                 }
-            }
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState){
             }
         });
     }
@@ -260,6 +232,46 @@ public class BlogActivity extends AppCompatActivity {
         );
     }
 
+
+    public void openPager (int position) {
+        //click on a photo, open view pager in fullscreen
+        findViewById(R.id.pagerLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.posts).setVisibility(View.GONE);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        toolbar.setVisibility(View.GONE);
+
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
+        photoPagerAdapter = new PhotoPagerAdapter(posts);
+        mViewPager.setAdapter(photoPagerAdapter);
+        //set the view pager on the selected photo
+        mViewPager.setCurrentItem(position);
+        //update photo data and listeners
+        updateFullscreenPhotoData(posts.get(position));
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                //update photo data and listeners
+                updateFullscreenPhotoData(posts.get(position));
+
+                //check if new request is required
+                if (position == posts.size() - 1) {
+                    requestPosts();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //nothing to do
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //nothing to do
+            }
+        });
+    }
+
     /**
      * Update information displayed on fullscreen pager
      * @param selectedPhoto the photo displayed on fullscreen pager
@@ -361,4 +373,3 @@ public class BlogActivity extends AppCompatActivity {
         }
     }
 }
-

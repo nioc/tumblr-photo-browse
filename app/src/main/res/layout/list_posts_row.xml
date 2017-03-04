@@ -1,55 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- single row of the photos list -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+<ImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/thumbnail"
     android:layout_height="match_parent"
-    android:minHeight="128dp"
-    android:gravity="center_vertical|center_horizontal">
-
-    <!-- photo thumbnail -->
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/thumbnail"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:adjustViewBounds="false"
-        android:scaleType="centerInside"
-        android:layout_gravity="bottom"
-        android:minHeight="128dp"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal">
-
-        <!-- original blog -->
-        <TextView
-            android:id="@+id/origin"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:gravity="top|center_horizontal"
-            android:layout_weight="1"
-            android:textSize="12sp" />
-
-        <!-- post "liked" indicator -->
-        <ImageView
-            android:id="@+id/liked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_heart_outline"
-            android:contentDescription="@string/alert_liked"/>
-
-        <!-- post note count -->
-        <TextView
-            android:id="@+id/noteCount"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:gravity="top|center_horizontal"
-            android:layout_weight="1"
-            android:textSize="12sp" />
-
-    </LinearLayout>
-
-</LinearLayout>
+    android:layout_width="match_parent"
+    android:scaleType="centerCrop"/>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="blogs_grid_num_columns">2</integer>
-    <integer name="photos_grid_num_columns">2</integer>
+    <integer name="photo_max_row_height">600</integer>
+    <integer name="photo_spacing">6</integer>
     <integer name="blog_avatar_pixels_size">512</integer>
 </resources>

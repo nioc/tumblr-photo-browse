@@ -29,6 +29,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://github.com/500px/greedo-layout-for-android/raw/master/releases/' }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -42,4 +46,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.scribejava:scribejava-core:4.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.fivehundredpx:greedo-layout:1.0.0'
 }
