@@ -21,7 +21,8 @@
         android:layout_height="match_parent"
         android:numColumns="@integer/blogs_grid_num_columns"
         android:horizontalSpacing="@dimen/grid_spacing"
-        android:verticalSpacing="@dimen/grid_spacing">
+        android:verticalSpacing="@dimen/grid_spacing"
+        android:background="@color/colorDarkBackground">
     </GridView>
 
 </LinearLayout>

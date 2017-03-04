@@ -6,7 +6,7 @@
 Tumblr Photo Browse is an open source Android application for browsing photos posted on [Tumblr](https://www.tumblr.com).
 
 ## Goal
-Providing a Tumblr application:
+Providing an Android Tumblr application:
 - photo focused,
 - user-friendly,
 - allow multi accounts,
@@ -18,6 +18,11 @@ Some functions made with love:
 - like a post,
 - navigate to original blog,
 - follow and unfollow blogs.
+
+![Connect account](/docs/connect_account.png)
+![Browse blog posts](/docs/browse_blog_posts.png)
+![Fullscreen display](/docs/fullscreen_display.png)
+![Manage followed blogs](/docs/manage_followed_blogs.png)
 
 ## Installation and usage
 

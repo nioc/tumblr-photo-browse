@@ -21,7 +21,8 @@
         android:id="@+id/posts"
         android:horizontalSpacing="@dimen/grid_spacing"
         android:verticalSpacing="@dimen/grid_spacing"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorDarkBackground"/>
 
     <!-- fullscreen photo layout -->
     <RelativeLayout
