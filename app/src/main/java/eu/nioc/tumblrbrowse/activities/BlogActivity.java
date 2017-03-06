@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fivehundredpx.greedolayout.GreedoLayoutManager;
@@ -308,20 +309,29 @@ public class BlogActivity extends AppCompatActivity {
         }
         ((TextView) findViewById(R.id.photo_origin)).setText(getString(R.string.post_dialog_title, origin));
         ((TextView) findViewById(R.id.photo_timestamp)).setText(DateUtils.getRelativeTimeSpanString(selectedPhoto.getTimestamp()*1000, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
-        findViewById(R.id.btn_photo_like).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //"Like" button will execute a network request
-                new LikeBlogPost(BlogActivity.this).execute(
-                        BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                        BuildConfig.TUMBLR_API_CONSUMER_SECRET,
-                        oauthToken,
-                        oauthVerifier,
-                        selectedPhoto.getId().toString(),
-                        selectedPhoto.reblog_key
-                );
-            }
-        });
+        ImageView likeView = (ImageView) findViewById(R.id.btn_photo_like);
+        if (selectedPhoto.liked) {
+            //photo is already liked
+            likeView.setImageResource(R.drawable.ic_heart);
+            likeView.setOnClickListener(null);
+        } else {
+            //photo is not liked, add onClickListener for posting your love
+            likeView.setImageResource(R.drawable.ic_heart_outline);
+            likeView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //"Like" button will execute a network request
+                    new LikeBlogPost(BlogActivity.this).execute(
+                            BuildConfig.TUMBLR_API_CONSUMER_KEY,
+                            BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                            oauthToken,
+                            oauthVerifier,
+                            selectedPhoto.getId().toString(),
+                            selectedPhoto.reblog_key
+                    );
+                }
+            });
+        }
         findViewById(R.id.btn_photo_original).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
