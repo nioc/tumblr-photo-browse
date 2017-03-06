@@ -8,6 +8,7 @@ public class BlogElement {
     public String title;
     public String name;
     public Long updated;
+    public Long last_refresh;
 
     @Override
     public boolean equals(Object o) {

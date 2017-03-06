@@ -57,6 +57,10 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
                     blogElement.name = blog.getName();
                     blogElement.updated = blog.getUpdated();
                     int index = this.previousBlogs.indexOf(blogElement);
+                    //if existing, get last refreshed timestamp
+                    if (index != -1 && this.previousBlogs.get(index).last_refresh != null) {
+                        blogElement.last_refresh = this.previousBlogs.get(index).last_refresh;
+                    }
                     //request avatar only for new blogs
                     if (index == -1 || this.previousBlogs.get(index).avatarUrl == null) {
                         try {

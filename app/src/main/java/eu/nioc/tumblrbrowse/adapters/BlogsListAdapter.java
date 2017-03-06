@@ -51,7 +51,8 @@ public class BlogsListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.titleView = (TextView) convertView.findViewById(R.id.title);
             holder.updatedView = (TextView) convertView.findViewById(R.id.updated);
-            holder.avatarView = (ImageView)convertView.findViewById(R.id.avatar);
+            holder.avatarView = (ImageView) convertView.findViewById(R.id.avatar);
+            holder.newContent = (ImageView) convertView.findViewById(R.id.newContent);
 
             convertView.setTag(holder);
 
@@ -68,6 +69,15 @@ public class BlogsListAdapter extends BaseAdapter {
         //set blog updated since time
         if (blogElement.updated != null) {
             holder.updatedView.setText(DateUtils.getRelativeTimeSpanString(blogElement.updated * 1000, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+        }
+
+        //set new content indicator
+        if (blogElement.updated == null || (blogElement.last_refresh == null && blogElement.updated > 0) || (blogElement.last_refresh != null && blogElement.updated > blogElement.last_refresh)) {
+            //blog was not read or there is new content since the last read
+            holder.newContent.setVisibility(View.VISIBLE);
+        } else {
+            //no new content
+            holder.newContent.setVisibility(View.GONE);
         }
 
         //load blog avatar with Picasso lib and fit it into ImageView
@@ -87,7 +97,9 @@ public class BlogsListAdapter extends BaseAdapter {
      * Local class used for viewHolder pattern
      */
     private static class ViewHolder {
-        TextView titleView, updatedView;
-        ImageView avatarView;
+        private TextView titleView;
+        private TextView updatedView;
+        private ImageView avatarView;
+        private ImageView newContent;
     }
 }

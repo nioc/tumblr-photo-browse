@@ -44,4 +44,6 @@
         <item quantity="one">%d note</item>
         <item quantity="other">%d notes</item>
     </plurals>
+    <!-- main activity layout -->
+    <string name="new_content_image_alt">New content</string>
 </resources>

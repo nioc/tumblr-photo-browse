@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 //on click, browse this specific blog
+                //temporarily update last refreshed timestamp (is stored as soon as blogs list is refreshed or blog posts are received)
+                blogs.get(position).last_refresh = System.currentTimeMillis() / 1000;
+                blogsListAdapter.notifyDataSetChanged();
+                //go to blog activity
                 Intent intent = new Intent(MainActivity.this, BlogActivity.class);
                 intent.putExtra(TumblrBrowse.BT_BLOG_NAME, ((BlogElement) blogsListView.getItemAtPosition(position)).name);
                 intent.putExtra(TumblrBrowse.BT_BLOG_TITLE, ((BlogElement) blogsListView.getItemAtPosition(position)).title);

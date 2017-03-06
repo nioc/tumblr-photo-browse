@@ -20,14 +20,18 @@ import android.widget.TextView;
 
 import com.fivehundredpx.greedolayout.GreedoLayoutManager;
 import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import eu.nioc.tumblrbrowse.BuildConfig;
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.adapters.PostsListAdapter;
+import eu.nioc.tumblrbrowse.models.BlogElement;
 import eu.nioc.tumblrbrowse.models.UnitPhotoPost;
 import eu.nioc.tumblrbrowse.services.FollowBlog;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogPosts;
@@ -44,6 +48,7 @@ import static eu.nioc.tumblrbrowse.TumblrBrowse.BT_BLOG_TITLE;
 public class BlogActivity extends AppCompatActivity {
     private int blogOffset;
     private String blogName;
+    private String currentBlog;
     private List<UnitPhotoPost> posts;
     private PostsListAdapter postsListAdapter;
     private PhotoPagerAdapter photoPagerAdapter;
@@ -79,7 +84,7 @@ public class BlogActivity extends AppCompatActivity {
 
         //get connected blog
         SharedPreferences settings = getSharedPreferences(getString(R.string.app_name), 0);
-        String currentBlog = settings.getString("currentBlog", null);
+        currentBlog = settings.getString("currentBlog", null);
 
         //get authentication information
         SharedPreferences blogSettings = getSharedPreferences(currentBlog, 0);
@@ -203,6 +208,25 @@ public class BlogActivity extends AppCompatActivity {
             //update pager if exists
             if (photoPagerAdapter != null) {
                 photoPagerAdapter.notifyDataSetChanged();
+            }
+
+            //store refresh timestamp for followed blogs
+            //get followed blogs
+            SharedPreferences blogSettings = getSharedPreferences(currentBlog, 0);
+            String strBlogs = blogSettings.getString("blogs", "[]");
+            Gson gson = new Gson();
+            List<BlogElement> blogs = gson.fromJson(strBlogs, new TypeToken<List<BlogElement>>(){}.getType());
+            //check if current refreshed blog is followed
+            BlogElement blogElement = new BlogElement();
+            blogElement.name = blogName;
+            int index = blogs.indexOf(blogElement);
+            if (index != -1) {
+                //store last refreshed timestamp
+                blogs.get(index).last_refresh = System.currentTimeMillis() / 1000;
+                Type listOfTestObject = new TypeToken<List<BlogElement>>(){}.getType();
+                SharedPreferences.Editor editor = blogSettings.edit();
+                editor.putString("blogs", gson.toJson(blogs, listOfTestObject));
+                editor.apply();
             }
         }
     }

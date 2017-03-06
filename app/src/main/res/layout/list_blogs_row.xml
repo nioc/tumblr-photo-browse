@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- single row of the blogs list -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,6 +16,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:id="@+id/blog_data_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/avatar"
@@ -45,5 +47,17 @@
             android:textSize="12sp" />
 
     </LinearLayout>
+
+    <!-- new content indicator -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newContent"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_sync_alert"
+        android:layout_alignBottom="@+id/blog_data_layout"
+        android:layout_alignEnd="@+id/blog_data_layout"
+        android:padding="@dimen/activity_margin"
+        android:contentDescription="@string/new_content_image_alt" />
 
 </RelativeLayout>
