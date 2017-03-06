@@ -4,4 +4,5 @@
     <integer name="photo_max_row_height">600</integer>
     <integer name="photo_spacing">6</integer>
     <integer name="blog_avatar_pixels_size">512</integer>
+    <integer name="history_deep">100</integer>
 </resources>

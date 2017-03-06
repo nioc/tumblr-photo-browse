@@ -111,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 
+            case R.id.btn_history:
+                //see current blog posts
+                Intent historyIntent = new Intent(this, HistoryActivity.class);
+                historyIntent.putExtra(TumblrBrowse.BT_BLOG_NAME, currentBlog);
+                startActivity(historyIntent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 

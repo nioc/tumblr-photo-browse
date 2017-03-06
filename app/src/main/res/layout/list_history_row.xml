@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- single row of the history -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/historyRow"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/grid_spacing">
+
+    <!-- blog title -->
+    <TextView
+        android:id="@+id/historyBlogTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:textSize="16sp" />
+
+    <!-- time ago since last update -->
+    <TextView
+        android:id="@+id/historyTimestamp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@android:color/background_light"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:textSize="12sp" />
+</LinearLayout>

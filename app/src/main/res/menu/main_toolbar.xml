@@ -34,4 +34,12 @@
         android:title="@string/btn_my_blog_posts_label">
     </item>
 
+    <!-- See history -->
+    <item
+        android:id="@+id/btn_history"
+        android:icon="@drawable/ic_history"
+        app:showAsAction="never"
+        android:title="@string/btn_history_label">
+    </item>
+
 </menu>

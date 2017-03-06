@@ -242,7 +242,7 @@ public class BlogActivity extends AppCompatActivity {
      */
     private void requestPosts() {
         isRequesting = true;
-        new GetTumblrBlogPosts(BlogActivity.this).execute(
+        new GetTumblrBlogPosts(BlogActivity.this, currentBlog).execute(
                 BuildConfig.TUMBLR_API_CONSUMER_KEY,
                 BuildConfig.TUMBLR_API_CONSUMER_SECRET,
                 oauthToken,

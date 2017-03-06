@@ -1,6 +1,7 @@
 package eu.nioc.tumblrbrowse.services;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.activities.BlogActivity;
+import eu.nioc.tumblrbrowse.models.BlogHistory;
 import eu.nioc.tumblrbrowse.models.UnitPhotoPost;
 
 /**
@@ -27,10 +29,12 @@ public class GetTumblrBlogPosts extends AsyncTask<String, String, List<UnitPhoto
     private Activity activity;
     private Exception exception;
     private Boolean hasMorePosts;
+    private String account;
 
-    public GetTumblrBlogPosts(Activity activity) {
+    public GetTumblrBlogPosts(Activity activity, String account) {
         this.activity = activity;
         hasMorePosts = false;
+        this.account = account;
     }
 
     @Override
@@ -79,6 +83,10 @@ public class GetTumblrBlogPosts extends AsyncTask<String, String, List<UnitPhoto
         } catch (Exception e) {
             exception = e;
         }
+
+        //Log access
+        BlogHistory BlogHistory = new BlogHistory(this.activity, account);
+        BlogHistory.addEntry(params[4]);
         return photoPosts;
     }
 

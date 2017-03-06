@@ -29,5 +29,8 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
 
+        <activity android:name="eu.nioc.tumblrbrowse.activities.HistoryActivity"
+            android:parentActivityName="eu.nioc.tumblrbrowse.activities.MainActivity" />
+
     </application>
 </manifest>

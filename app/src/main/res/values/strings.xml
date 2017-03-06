@@ -9,6 +9,7 @@
     <!-- main menu -->
     <string name="btn_accounts_label">Accounts</string>
     <string name="btn_get_blogs_label">Refresh following blogs</string>
+    <string name="btn_history_label">History</string>
     <string name="btn_my_blog_posts_label">My posts</string>
     <string name="loading_label">Loading…</string>
     <!-- account activity toolbar -->
@@ -17,6 +18,8 @@
     <string name="account_activity_title">Accounts</string>
     <!-- main toolbar -->
     <string name="main_activity_subtitle">Following blogs</string>
+    <!-- history toolbar -->
+    <string name="history_activity_subtitle">History</string>
     <!-- account menu -->
     <string name="menu_action_add_account">Add account</string>
     <string name="menu_action_close">Close</string>
