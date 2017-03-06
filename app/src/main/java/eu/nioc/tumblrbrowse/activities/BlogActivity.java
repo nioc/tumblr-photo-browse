@@ -204,12 +204,7 @@ public class BlogActivity extends AppCompatActivity {
 
             //update grid
             posts.addAll(retrievedPosts);
-            postsListAdapter.notifyDataSetChanged();
-
-            //update pager if exists
-            if (photoPagerAdapter != null) {
-                photoPagerAdapter.notifyDataSetChanged();
-            }
+            setBlogPosts(posts);
 
             //store refresh timestamp for followed blogs
             //get followed blogs
@@ -321,7 +316,7 @@ public class BlogActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //"Like" button will execute a network request
-                    new LikeBlogPost(BlogActivity.this).execute(
+                    new LikeBlogPost(BlogActivity.this, posts).execute(
                             BuildConfig.TUMBLR_API_CONSUMER_KEY,
                             BuildConfig.TUMBLR_API_CONSUMER_SECRET,
                             oauthToken,
@@ -351,6 +346,20 @@ public class BlogActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    /**
+     * Refresh all posts with provided list
+     * @param posts list containing all photo posts
+     */
+    public void setBlogPosts(List<UnitPhotoPost> posts) {
+        this.posts = posts;
+        postsListAdapter.notifyDataSetChanged();
+
+        //update pager if exists
+        if (photoPagerAdapter != null) {
+            photoPagerAdapter.notifyDataSetChanged();
+        }
     }
 
     /**

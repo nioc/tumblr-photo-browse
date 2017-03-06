@@ -29,6 +29,7 @@
     <string name="alert_add_blog_success">Blog "%s" is successfully added</string>
     <string name="alert_current_blog">Current blog is: %s</string>
     <string name="alert_liked">Liked</string>
+    <string name="alert_like_failed">Like failed</string>
     <string name="alert_request_blog_error">Error during request: %s</string>
     <string name="delete_account_negative_label">No</string>
     <string name="delete_account_positive_label">Yes, remove it</string>
