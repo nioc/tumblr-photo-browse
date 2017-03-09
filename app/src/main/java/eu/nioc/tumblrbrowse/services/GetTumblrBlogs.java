@@ -105,6 +105,8 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
         if (exception != null) {
             //display exception message to user
             Toast.makeText(this.activity, activity.getString(R.string.alert_request_blog_error, exception.getMessage()), Toast.LENGTH_SHORT).show();
+            //clear refreshed blogs list for avoiding storing it
+            localBlogs = null;
         }
         ((MainActivity)this.activity).refreshBlogs(localBlogs);
     }

@@ -149,18 +149,21 @@ public class MainActivity extends AppCompatActivity {
      * @param blogs Blogs collection updated
      */
     public void refreshBlogs(List<BlogElement> blogs) {
-        //store blogs list
-        Gson gson = new Gson();
-        Type listOfTestObject = new TypeToken<List<BlogElement>>(){}.getType();
-        SharedPreferences settings = getSharedPreferences(currentBlog, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("blogs", gson.toJson(blogs, listOfTestObject));
-        editor.apply();
+        if (blogs != null) {
+            //store blogs list if not null
+            Gson gson = new Gson();
+            Type listOfTestObject = new TypeToken<List<BlogElement>>() {}.getType();
+            SharedPreferences settings = getSharedPreferences(currentBlog, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("blogs", gson.toJson(blogs, listOfTestObject));
+            editor.apply();
 
-        //update blogs list
-        this.blogs.clear();
-        this.blogs.addAll(blogs);
-        blogsListAdapter.notifyDataSetChanged();
+            //update blogs list
+            this.blogs.clear();
+            this.blogs.addAll(blogs);
+            blogsListAdapter.notifyDataSetChanged();
+        }
+        //remove progress bar
         if (actionProgressItem != null) {
             actionProgressItem.setVisible(false);
         }
