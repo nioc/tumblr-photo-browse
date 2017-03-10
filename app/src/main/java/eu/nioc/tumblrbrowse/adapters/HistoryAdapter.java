@@ -39,6 +39,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         final BlogHistory.BlogHistoryEntry entry = (BlogHistory.BlogHistoryEntry) entries.get(position);
         //set data in views
         holder.blogView.setText(entry.blog);
+        holder.pageView.setText(this.context.getResources().getString(R.string.history_activity_page_label, entry.page));
         holder.timestampView.setText(DateUtils.getRelativeTimeSpanString(entry.timestamp * 1000, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
         //set click listener for opening blog
         holder.historyRowView.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +69,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
      */
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView blogView;
+        private TextView pageView;
         private TextView timestampView;
         private View historyRowView;
 
@@ -75,6 +77,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             super(itemView);
             //bind views
             blogView = (TextView) itemView.findViewById(R.id.historyBlogTitle);
+            pageView = (TextView) itemView.findViewById(R.id.historyBlogPage);
             timestampView = (TextView) itemView.findViewById(R.id.historyTimestamp);
             historyRowView = itemView.findViewById(R.id.historyRow);
         }

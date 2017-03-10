@@ -86,7 +86,7 @@ public class GetTumblrBlogPosts extends AsyncTask<String, String, List<UnitPhoto
 
         //Log access
         BlogHistory BlogHistory = new BlogHistory(this.activity, account);
-        BlogHistory.addEntry(params[4]);
+        BlogHistory.addEntry(params[4], 1 + Integer.parseInt(params[5]) / 20);
         return photoPosts;
     }
 

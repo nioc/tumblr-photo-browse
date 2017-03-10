@@ -7,16 +7,33 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/grid_spacing">
 
-    <!-- blog title -->
-    <TextView
-        android:id="@+id/historyBlogTitle"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textColor="@android:color/background_light"
-        android:textStyle="bold"
-        android:ellipsize="marquee"
-        android:maxLines="1"
-        android:textSize="16sp" />
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content">
+
+        <!-- blog title -->
+        <TextView
+            android:id="@+id/historyBlogTitle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:textSize="16sp" />
+
+        <!-- page offset -->
+        <TextView
+            android:id="@+id/historyBlogPage"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/background_light"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:textSize="14sp"
+            android:layout_marginStart="@dimen/fields_horizontal_spacing" />
+
+    </LinearLayout>
 
     <!-- time ago since last update -->
     <TextView

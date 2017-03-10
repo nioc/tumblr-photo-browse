@@ -50,4 +50,6 @@
     </plurals>
     <!-- main activity layout -->
     <string name="new_content_image_alt">New content</string>
+    <!-- history page -->
+    <string name="history_activity_page_label">(page %d)</string>
 </resources>

@@ -7,4 +7,5 @@
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="legend_icon_size">24dp</dimen>
     <dimen name="button_margin">8dp</dimen>
+    <dimen name="fields_horizontal_spacing">4dp</dimen>
 </resources>

@@ -22,13 +22,13 @@ public class BlogHistory {
         this.account = account;
     }
 
-    public void addEntry(String blog) {
+    public void addEntry(String blog, int page) {
         //read logs
         SharedPreferences accountSettings = context.getSharedPreferences(account, 0);
         Gson gson = new Gson();
         List<BlogHistoryEntry> history = gson.fromJson(accountSettings.getString("history", "[]"), new TypeToken<List<BlogHistoryEntry>>() {}.getType());
         //add entry to history (first value)
-        history.add(0, new BlogHistoryEntry(blog));
+        history.add(0, new BlogHistoryEntry(blog, page));
         //limit to N entries
         final int HISTORY_DEEP = context.getResources().getInteger(R.integer.history_deep);
         if (history.size() > HISTORY_DEEP) {
@@ -51,9 +51,11 @@ public class BlogHistory {
     public class BlogHistoryEntry {
         public long timestamp;
         public String blog;
+        public int page;
 
-        BlogHistoryEntry(String blog) {
+        BlogHistoryEntry(String blog, int page) {
             this.blog = blog;
+            this.page = page;
             this.timestamp = System.currentTimeMillis() / 1000;
         }
     }
