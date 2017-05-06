@@ -1,7 +1,6 @@
 package eu.nioc.tumblrbrowse.services;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 

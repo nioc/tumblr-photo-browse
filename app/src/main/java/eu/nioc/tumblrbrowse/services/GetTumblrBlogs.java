@@ -47,9 +47,9 @@ public class GetTumblrBlogs extends AsyncTask<String, Object, List<BlogElement>>
             List<Blog> blogs;
 
             do {
-                Map<String, String> options = new HashMap<>();
-                options.put("offset", String.valueOf(offset));
-                options.put("limit", String.valueOf(LIMIT));
+                Map<String, Integer> options = new HashMap<>();
+                options.put("offset", offset);
+                options.put("limit", LIMIT);
                 blogs = client.userFollowing(options);
                 for (Blog blog : blogs) {
                     BlogElement blogElement = new BlogElement();
