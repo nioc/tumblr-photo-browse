@@ -17,7 +17,8 @@ Some functions made with love:
 - browse photos posts,
 - like a post,
 - navigate to original blog,
-- follow and unfollow blogs.
+- follow and unfollow blogs,
+- get EXIF data (camera and lens model, focal length, aperture, shutter speed, ISO rating) from a photo.
 
 ![Connect account](/docs/connect_account.png)
 ![Browse blog posts](/docs/browse_blog_posts.png)
@@ -73,3 +74,4 @@ This project uses the following:
 - [ScribeJava](https://github.com/scribejava/scribejava) (MIT)
 - [Gson](https://github.com/google/gson/) (Apache License 2.0)
 - [Greedo Layout for Android](https://github.com/500px/greedo-layout-for-android) (MIT)
+- [metadata-extractor](https://github.com/drewnoakes/metadata-extractor) (Apache License 2.0)

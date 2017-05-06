@@ -48,4 +48,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.fivehundredpx:greedo-layout:1.0.0'
+    compile 'com.drewnoakes:metadata-extractor:2.10.1'
 }

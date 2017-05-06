@@ -46,6 +46,23 @@
 
         </android.support.v4.view.ViewPager>
 
+        <!-- EXIF list -->
+        <LinearLayout
+            android:id="@+id/exifLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:background="@color/black_half_transparent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/exif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_round_border"
+                android:padding="@dimen/line_list_vertical_padding" />
+        </LinearLayout>
+
         <!-- photo data layout -->
         <LinearLayout
             android:orientation="horizontal"
@@ -78,6 +95,17 @@
                     android:id="@+id/photo_timestamp"
                     android:textColor="@android:color/background_light" />
             </LinearLayout>
+
+            <!-- Exif button -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_photo_exif"
+                app:srcCompat="@drawable/ic_iris"
+                android:minHeight="@dimen/legend_icon_size"
+                android:minWidth="@dimen/legend_icon_size"
+                android:layout_marginStart="@dimen/button_margin"
+                android:layout_marginEnd="@dimen/button_margin"/>
 
             <!-- note button -->
             <ImageView

@@ -3,6 +3,8 @@ package eu.nioc.tumblrbrowse.models;
 import com.tumblr.jumblr.types.Photo;
 import com.tumblr.jumblr.types.PhotoPost;
 
+import java.util.ArrayList;
+
 /**
  * Lightweight and public version of PhotoPost class for using in blog activity
  */
@@ -11,6 +13,7 @@ public class UnitPhotoPost extends PhotoPost {
     public String reblog_key, reblogged_from_name;
     public Boolean liked;
     public Photo photo;
+    public ArrayList<PhotoExif> exif;
 
     public Long getNoteCount() {
         return note_count;

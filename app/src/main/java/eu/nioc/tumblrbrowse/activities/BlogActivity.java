@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fivehundredpx.greedolayout.GreedoLayoutManager;
@@ -31,10 +33,12 @@ import java.util.List;
 
 import eu.nioc.tumblrbrowse.BuildConfig;
 import eu.nioc.tumblrbrowse.R;
+import eu.nioc.tumblrbrowse.adapters.ExifAdapter;
 import eu.nioc.tumblrbrowse.adapters.PostsListAdapter;
 import eu.nioc.tumblrbrowse.models.BlogElement;
 import eu.nioc.tumblrbrowse.models.UnitPhotoPost;
 import eu.nioc.tumblrbrowse.services.FollowBlog;
+import eu.nioc.tumblrbrowse.services.GetExif;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogPosts;
 import eu.nioc.tumblrbrowse.services.LikeBlogPost;
 import uk.co.senab.photoview.PhotoView;
@@ -228,6 +232,34 @@ public class BlogActivity extends AppCompatActivity {
     }
 
     /**
+     * Callback method call after requesting EXIF
+     *
+     * @param photoPost photo post updated with EXIF
+     */
+    public void displayPhotoPostExif(UnitPhotoPost photoPost) {
+        if (photoPost.exif != null && !photoPost.exif.isEmpty()) {
+            //display EXIF in specific layout
+            LinearLayout exifLayoutView = (LinearLayout) findViewById(R.id.exifLayout);
+            exifLayoutView.setVisibility(View.VISIBLE);
+            RecyclerView exifView = (RecyclerView) findViewById(R.id.exif);
+            ExifAdapter adapter = new ExifAdapter(photoPost.exif);
+            exifView.setAdapter(adapter);
+            exifView.setLayoutManager(new LinearLayoutManager(this));
+            //handle click for closing
+            exifLayoutView.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            v.setVisibility(View.INVISIBLE);
+                        }
+                    }
+            );
+        } else {
+            findViewById(R.id.btn_photo_exif).setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
      * Close fullscreen pager
      */
     private void closePhoto() {
@@ -297,6 +329,9 @@ public class BlogActivity extends AppCompatActivity {
      * @param selectedPhoto the photo displayed on fullscreen pager
      */
     private void updateFullscreenPhotoData(final UnitPhotoPost selectedPhoto) {
+        //hide EXIF layout but display button
+        findViewById(R.id.exifLayout).setVisibility(View.INVISIBLE);
+        findViewById(R.id.btn_photo_exif).setVisibility(View.VISIBLE);
         String origin = selectedPhoto.getRebloggedFromName();
         if (origin == null) {
             //photo is from the current blog, get its name
@@ -327,6 +362,7 @@ public class BlogActivity extends AppCompatActivity {
                 }
             });
         }
+        //handle "Original" button
         findViewById(R.id.btn_photo_original).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -337,6 +373,7 @@ public class BlogActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //handle "Caption" button
         findViewById(R.id.btn_photo_caption).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -344,6 +381,13 @@ public class BlogActivity extends AppCompatActivity {
                 new AlertDialog.Builder(view.getContext())
                         .setMessage(Html.fromHtml(selectedPhoto.getCaption()))
                         .show();
+            }
+        });
+        //Handle "EXIF" button
+        findViewById(R.id.btn_photo_exif).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new GetExif(BlogActivity.this).execute(selectedPhoto);
             }
         });
     }

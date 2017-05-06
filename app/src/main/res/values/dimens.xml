@@ -3,9 +3,12 @@
     <dimen name="activity_margin">8dp</dimen>
     <dimen name="min_image_size">64dp</dimen>
     <dimen name="grid_spacing">1dp</dimen>
+    <dimen name="line_list_vertical_padding">8dp</dimen>
     <dimen name="avatar_image_size">512px</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="legend_icon_size">24dp</dimen>
+    <dimen name="exif_icon_size">32dp</dimen>
     <dimen name="button_margin">8dp</dimen>
     <dimen name="fields_horizontal_spacing">4dp</dimen>
+
 </resources>
