@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -255,7 +256,7 @@ public class BlogActivity extends AppCompatActivity {
                     }
             );
         } else {
-            findViewById(R.id.btn_photo_exif).setVisibility(View.INVISIBLE);
+            findViewById(R.id.btn_photo_exif).setVisibility(View.GONE);
         }
     }
 
@@ -329,9 +330,12 @@ public class BlogActivity extends AppCompatActivity {
      * @param selectedPhoto the photo displayed on fullscreen pager
      */
     private void updateFullscreenPhotoData(final UnitPhotoPost selectedPhoto) {
-        //hide EXIF layout but display button
+        //hide EXIF and caption layouts
         findViewById(R.id.exifLayout).setVisibility(View.INVISIBLE);
+        findViewById(R.id.captionLayout).setVisibility(View.INVISIBLE);
+        //display EXIF and caption hidden buttons
         findViewById(R.id.btn_photo_exif).setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_photo_caption).setVisibility(View.VISIBLE);
         String origin = selectedPhoto.getRebloggedFromName();
         if (origin == null) {
             //photo is from the current blog, get its name
@@ -377,10 +381,27 @@ public class BlogActivity extends AppCompatActivity {
         findViewById(R.id.btn_photo_caption).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //display post caption
-                new AlertDialog.Builder(view.getContext())
-                        .setMessage(Html.fromHtml(selectedPhoto.getCaption()))
-                        .show();
+                String caption = selectedPhoto.getCaption();
+                if (caption != null && !caption.isEmpty()) {
+                    //display post caption in specific layout
+                    LinearLayout captionLayoutView = (LinearLayout) findViewById(R.id.captionLayout);
+                    captionLayoutView.setVisibility(View.VISIBLE);
+                    TextView captionView = (TextView) findViewById(R.id.caption);
+                    //set text with HTML format (require for handle links)
+                    captionView.setText(Html.fromHtml(caption));
+                    captionView.setMovementMethod(LinkMovementMethod.getInstance());
+                    //handle click for closing
+                    captionLayoutView.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    v.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                    );
+                } else {
+                    findViewById(R.id.btn_photo_caption).setVisibility(View.GONE);
+                }
             }
         });
         //Handle "EXIF" button

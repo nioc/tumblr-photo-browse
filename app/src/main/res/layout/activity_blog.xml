@@ -46,6 +46,27 @@
 
         </android.support.v4.view.ViewPager>
 
+        <!-- caption layout -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/captionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:background="@color/black_half_transparent">
+
+            <!-- caption -->
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:background="@drawable/background_white_round_border"
+                android:nestedScrollingEnabled="true"
+                android:padding="@dimen/line_list_vertical_padding" />
+        </LinearLayout>
+
         <!-- EXIF list -->
         <LinearLayout
             android:id="@+id/exifLayout"
