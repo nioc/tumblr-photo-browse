@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -67,9 +68,15 @@ public class BlogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog);
 
-        //get parameters from intent
+        //get blog name parameter from application intent
         Intent intent = getIntent();
         blogName = intent.getStringExtra(BT_BLOG_NAME);
+
+        if (blogName == null) {
+            //activity was called without blog name, try to get blog name parameter from an URL intent (assuming blog name is the host subdomain)
+            Uri uri = intent.getData();
+            blogName = uri.getHost().replace(".tumblr.com", "");
+        }
 
         if (blogName == null) {
             //no blog chosen, return to main activity

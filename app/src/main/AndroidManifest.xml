@@ -21,7 +21,14 @@
 
         <activity
             android:name="eu.nioc.tumblrbrowse.activities.BlogActivity"
-            android:parentActivityName="eu.nioc.tumblrbrowse.activities.MainActivity" />
+            android:parentActivityName="eu.nioc.tumblrbrowse.activities.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="*.tumblr.com" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="eu.nioc.tumblrbrowse.activities.AccountActivity"
