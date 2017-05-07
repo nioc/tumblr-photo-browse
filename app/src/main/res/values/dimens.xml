@@ -10,5 +10,7 @@
     <dimen name="exif_icon_size">32dp</dimen>
     <dimen name="button_margin">8dp</dimen>
     <dimen name="fields_horizontal_spacing">4dp</dimen>
+    <dimen name="dialog_elevation">24dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
 
 </resources>

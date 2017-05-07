@@ -63,8 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_margin"
                 android:background="@drawable/background_white_round_border"
+                android:elevation="@dimen/dialog_elevation"
                 android:nestedScrollingEnabled="true"
-                android:padding="@dimen/line_list_vertical_padding" />
+                android:padding="@dimen/dialog_padding" />
         </LinearLayout>
 
         <!-- EXIF list -->
@@ -81,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_round_border"
+                android:elevation="@dimen/dialog_elevation"
                 android:padding="@dimen/line_list_vertical_padding" />
         </LinearLayout>
 
@@ -93,6 +95,17 @@
             android:background="@drawable/background_gradient_bottom"
             android:id="@+id/photo_data"
             android:gravity="bottom">
+
+            <!-- original blog button -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_photo_original"
+                app:srcCompat="@drawable/ic_account"
+                android:minHeight="@dimen/legend_icon_size"
+                android:minWidth="@dimen/legend_icon_size"
+                android:layout_marginStart="@dimen/button_margin"
+                android:layout_marginEnd="@dimen/button_margin" />
 
             <!-- text data -->
             <LinearLayout
@@ -107,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/photo_origin"
                     android:textColor="@android:color/background_light"
+                    android:textSize="12sp"
                     android:textStyle="normal|bold" />
 
                 <!-- photo timestamp -->
@@ -114,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/photo_timestamp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/background_light" />
             </LinearLayout>
 
@@ -138,17 +153,6 @@
                 android:minWidth="@dimen/legend_icon_size"
                 android:layout_marginStart="@dimen/button_margin"
                 android:layout_marginEnd="@dimen/button_margin"/>
-
-            <!-- original blog button -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_photo_original"
-                app:srcCompat="@drawable/ic_account"
-                android:minHeight="@dimen/legend_icon_size"
-                android:minWidth="@dimen/legend_icon_size"
-                android:layout_marginStart="@dimen/button_margin"
-                android:layout_marginEnd="@dimen/button_margin" />
 
             <!-- like button -->
             <ImageView
