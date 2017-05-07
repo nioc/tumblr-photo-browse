@@ -13,6 +13,8 @@ public class TumblrBrowse extends Application {
 
     public static final String BT_BLOG_TITLE = "eu.nioc.tumblrbrowse.blogTitle";
     public static final String BT_BLOG_NAME = "eu.nioc.tumblrbrowse.blogName";
+    public static String TUMBLR_API_CONSUMER_KEY;
+    public static String TUMBLR_API_CONSUMER_SECRET;
 
     private static TumblrBrowse mInstance;
     private static Context mAppContext;
@@ -22,6 +24,9 @@ public class TumblrBrowse extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+        TUMBLR_API_CONSUMER_KEY = BuildConfig.TUMBLR_API_CONSUMER_KEY;
+        TUMBLR_API_CONSUMER_SECRET = BuildConfig.TUMBLR_API_CONSUMER_SECRET;
 
         this.setAppContext(getApplicationContext());
     }

@@ -33,7 +33,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.nioc.tumblrbrowse.BuildConfig;
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.adapters.ExifAdapter;
 import eu.nioc.tumblrbrowse.adapters.PostsListAdapter;
@@ -48,6 +47,8 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 import static eu.nioc.tumblrbrowse.TumblrBrowse.BT_BLOG_NAME;
 import static eu.nioc.tumblrbrowse.TumblrBrowse.BT_BLOG_TITLE;
+import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_KEY;
+import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_SECRET;
 
 /**
  * This activity display photos of the intent required blog as a list
@@ -152,8 +153,8 @@ public class BlogActivity extends AppCompatActivity {
 
             case R.id.btn_follow:
                 new FollowBlog(BlogActivity.this, true).execute(
-                        BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                        BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                        TUMBLR_API_CONSUMER_KEY,
+                        TUMBLR_API_CONSUMER_SECRET,
                         oauthToken,
                         oauthVerifier,
                         this.blogName
@@ -170,8 +171,8 @@ public class BlogActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.unfollow_blog_confirm_yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 new FollowBlog(BlogActivity.this, false).execute(
-                                        BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                                        BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                                        TUMBLR_API_CONSUMER_KEY,
+                                        TUMBLR_API_CONSUMER_SECRET,
                                         oauthToken,
                                         oauthVerifier,
                                         blogName
@@ -283,8 +284,8 @@ public class BlogActivity extends AppCompatActivity {
     private void requestPosts() {
         isRequesting = true;
         new GetTumblrBlogPosts(BlogActivity.this, currentBlog).execute(
-                BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                TUMBLR_API_CONSUMER_KEY,
+                TUMBLR_API_CONSUMER_SECRET,
                 oauthToken,
                 oauthVerifier,
                 blogName,
@@ -363,8 +364,8 @@ public class BlogActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     //"Like" button will execute a network request
                     new LikeBlogPost(BlogActivity.this, posts).execute(
-                            BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                            BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                            TUMBLR_API_CONSUMER_KEY,
+                            TUMBLR_API_CONSUMER_SECRET,
                             oauthToken,
                             oauthVerifier,
                             selectedPhoto.getId().toString(),

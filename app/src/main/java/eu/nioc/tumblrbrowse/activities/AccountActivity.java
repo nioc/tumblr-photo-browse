@@ -32,9 +32,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-import eu.nioc.tumblrbrowse.BuildConfig;
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.utils.OauthTumblrApi;
+
+import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_KEY;
+import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_SECRET;
 
 /**
  * Handle account management (add account with OAuth 1.0a)
@@ -165,8 +167,8 @@ public class AccountActivity extends AppCompatActivity {
 
         //instantiate Oauth service
         final OAuth10aService service = new ServiceBuilder()
-                .apiKey(BuildConfig.TUMBLR_API_CONSUMER_KEY)
-                .apiSecret(BuildConfig.TUMBLR_API_CONSUMER_SECRET)
+                .apiKey(TUMBLR_API_CONSUMER_KEY)
+                .apiSecret(TUMBLR_API_CONSUMER_SECRET)
                 .callback("https://www.tumblr.com/")
                 .build(OauthTumblrApi.instance());
 
@@ -227,7 +229,7 @@ public class AccountActivity extends AppCompatActivity {
      * @param tokenSecret provided token secret
      */
     private void saveToken(String token, String tokenSecret) {
-        JumblrClient client = new JumblrClient(BuildConfig.TUMBLR_API_CONSUMER_KEY, BuildConfig.TUMBLR_API_CONSUMER_SECRET);
+        JumblrClient client = new JumblrClient(TUMBLR_API_CONSUMER_KEY, TUMBLR_API_CONSUMER_SECRET);
         client.setToken(token, tokenSecret);
         //retrieve blog information (name, followings)
         String name = client.user().getName();

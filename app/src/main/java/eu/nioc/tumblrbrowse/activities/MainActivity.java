@@ -18,11 +18,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import eu.nioc.tumblrbrowse.TumblrBrowse;
-import eu.nioc.tumblrbrowse.BuildConfig;
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.adapters.BlogsListAdapter;
 import eu.nioc.tumblrbrowse.models.BlogElement;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogs;
+
+import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_KEY;
+import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_SECRET;
 
 /**
  * This activity display user's following blogs as a list, providing a way of browsing within them
@@ -133,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
         String oauthVerifier = settings.getString("oauthVerifier", null);
 
         new GetTumblrBlogs(this, blogs).execute(
-                BuildConfig.TUMBLR_API_CONSUMER_KEY,
-                BuildConfig.TUMBLR_API_CONSUMER_SECRET,
+                TUMBLR_API_CONSUMER_KEY,
+                TUMBLR_API_CONSUMER_SECRET,
                 oauthToken,
                 oauthVerifier
         );
