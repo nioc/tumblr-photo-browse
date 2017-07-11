@@ -374,6 +374,13 @@ public class BlogActivity extends AppCompatActivity {
                 }
             });
         }
+        //handle "Return" button
+        findViewById(R.id.btn_photo_return).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closePhoto();
+            }
+        });
         //handle "Original" button
         findViewById(R.id.btn_photo_original).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -96,6 +96,16 @@
             android:id="@+id/photo_data"
             android:gravity="bottom">
 
+            <!-- return button -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_photo_return"
+                app:srcCompat="@drawable/ic_return"
+                android:minHeight="@dimen/legend_icon_size"
+                android:minWidth="@dimen/legend_icon_size"
+                android:layout_marginStart="@dimen/button_margin"
+                android:layout_marginEnd="@dimen/button_margin" />
             <!-- original blog button -->
             <ImageView
                 android:layout_width="wrap_content"
