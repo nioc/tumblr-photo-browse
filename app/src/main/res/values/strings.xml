@@ -10,6 +10,7 @@
     <string name="btn_accounts_label">Accounts</string>
     <string name="btn_get_blogs_label">Refresh following blogs</string>
     <string name="btn_history_label">History</string>
+    <string name="btn_export_preferences_label">Export / Import</string>
     <string name="btn_my_blog_posts_label">My posts</string>
     <string name="loading_label">Loading…</string>
     <!-- account activity toolbar -->
@@ -52,4 +53,17 @@
     <string name="new_content_image_alt">New content</string>
     <!-- history page -->
     <string name="history_activity_page_label">(page %d)</string>
+    <!-- preferences export/import -->
+    <string name="backup_confirm_title">Backup preferences</string>
+    <string name="backup_confirm_message">Preferences of \"%s\" blog can be saved in your phone storage if you need to restore it</string>
+    <string name="backup_export_button">Export</string>
+    <string name="backup_import_button">Import</string>
+    <string name="backup_discard_button">Do nothing</string>
+    <string name="backup_filename">%1$s/Android/data/%2$s/files/%3$s.bk</string>
+    <string name="alert_export_preferences_success">Preferences saved</string>
+    <string name="alert_export_preferences_fail_storage">Preferences not saved (require access to external storage)</string>
+    <string name="alert_export_preferences_fail_error">Preferences not saved (error)</string>
+    <string name="alert_import_preferences_success">Preferences restored</string>
+    <string name="alert_import_preferences_fail_not_found">Preferences not restored (file not found)</string>
+    <string name="alert_import_preferences_fail_error">Preferences not restored (error)</string>
 </resources>

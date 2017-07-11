@@ -1,8 +1,11 @@
 package eu.nioc.tumblrbrowse.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,17 +13,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 import eu.nioc.tumblrbrowse.TumblrBrowse;
 import eu.nioc.tumblrbrowse.R;
 import eu.nioc.tumblrbrowse.adapters.BlogsListAdapter;
 import eu.nioc.tumblrbrowse.models.BlogElement;
+import eu.nioc.tumblrbrowse.services.FollowBlog;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogs;
 
 import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_KEY;
@@ -120,6 +133,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(historyIntent);
                 return true;
 
+            case R.id.btn_export_preferences:
+                //open pop up for choosing action
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                //prepare dialog
+                builder.setIcon(R.drawable.ic_backup)
+                        .setTitle(R.string.backup_confirm_title)
+                        .setMessage(getString(R.string.backup_confirm_message, currentBlog))
+                        //"Yes" button will save preferences
+                        .setPositiveButton(R.string.backup_export_button, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                exportPreferences(currentBlog);
+                            }
+                        })
+                        //"Neutral" button will discard dialog
+                        .setNeutralButton(R.string.backup_discard_button, null);
+                //add "import" button if there is a previous save for this blog
+                if (new File(getString(R.string.backup_filename, Environment.getExternalStorageDirectory().getPath(), getPackageName(), currentBlog)).exists()) {
+                    //"No" button will restore previous preferences
+                    builder.setNegativeButton(R.string.backup_import_button, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            importPreferences(currentBlog);
+                        }
+                    });
+                }
+                //show dialog
+                builder.show();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -169,5 +210,92 @@ public class MainActivity extends AppCompatActivity {
         if (actionProgressItem != null) {
             actionProgressItem.setVisible(false);
         }
+    }
+
+    /**
+     * Export and save user preferences (history, ...)
+     *
+     * @param exportedBlog Blog to export
+     * @return result of the export
+     */
+    public boolean exportPreferences(String exportedBlog) {
+        //get all shared preferences for current account in a map
+        SharedPreferences exportedBlogSharedPreferences = getSharedPreferences(exportedBlog, 0);
+        Map<String, ?> exportedBlogPreferences = exportedBlogSharedPreferences.getAll();
+        try {
+            //try to save preferences in an external storage file
+            File file = new File(getString(R.string.backup_filename, Environment.getExternalStorageDirectory().getPath(), getPackageName(), exportedBlog));//, System.currentTimeMillis() / 1000
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())) {
+                //external storage is mounted and writable
+                file.createNewFile();
+                ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file));
+                output.writeObject(exportedBlogPreferences);
+                output.close();
+                //notify user
+                Toast.makeText(this, getString(R.string.alert_export_preferences_success), Toast.LENGTH_SHORT).show();
+                //preferences are saved in external storage
+                return true;
+            }
+            //notify user
+            Toast.makeText(this, getString(R.string.alert_export_preferences_fail_storage), Toast.LENGTH_SHORT).show();
+            //can not reach external storage
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //notify user
+        Toast.makeText(this, getString(R.string.alert_export_preferences_fail_error), Toast.LENGTH_SHORT).show();
+        //error during export
+        return false;
+    }
+
+    /**
+     * Import a previous saved user preferences
+     *
+     * @param importedBlog Blog to export
+     * @return result of the import
+     */
+    @SuppressWarnings({"unchecked"})
+    public boolean importPreferences(String importedBlog) {
+        File file = new File(getString(R.string.backup_filename, Environment.getExternalStorageDirectory().getPath(), getPackageName(), importedBlog));
+        try {
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream(file));
+            SharedPreferences.Editor currentBlogEditor = getSharedPreferences(importedBlog, 0).edit();
+            currentBlogEditor.clear();
+            Map<String, ?> entries = (Map<String, ?>) input.readObject();
+            for (Map.Entry<String, ?> entry : entries.entrySet()) {
+                //for each entry in preferences map, find its type and set the key to value
+                Object value = entry.getValue();
+                String key = entry.getKey();
+                if (value instanceof Boolean)
+                    currentBlogEditor.putBoolean(key, (Boolean) value);
+                else if (value instanceof Float)
+                    currentBlogEditor.putFloat(key, (Float) value);
+                else if (value instanceof Integer)
+                    currentBlogEditor.putInt(key, (Integer) value);
+                else if (value instanceof Long)
+                    currentBlogEditor.putLong(key, (Long) value);
+                else if (value instanceof String)
+                    currentBlogEditor.putString(key, ((String) value));
+            }
+            //finish by closing input and committing preferences
+            currentBlogEditor.commit();
+            input.close();
+            //notify user
+            Toast.makeText(this, getString(R.string.alert_import_preferences_success), Toast.LENGTH_SHORT).show();
+            //preferences are imported
+            return true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            //notify user
+            Toast.makeText(this, getString(R.string.alert_import_preferences_fail_not_found), Toast.LENGTH_SHORT).show();
+            return false;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //notify user
+        Toast.makeText(this, getString(R.string.alert_import_preferences_fail_error), Toast.LENGTH_SHORT).show();
+        //error during import
+        return false;
     }
 }

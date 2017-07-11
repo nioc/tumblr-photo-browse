@@ -42,4 +42,12 @@
         android:title="@string/btn_history_label">
     </item>
 
+    <!-- Export / import preferences -->
+    <item
+        android:id="@+id/btn_export_preferences"
+        android:icon="@drawable/ic_backup"
+        app:showAsAction="never"
+        android:title="@string/btn_export_preferences_label">
+    </item>
+
 </menu>
