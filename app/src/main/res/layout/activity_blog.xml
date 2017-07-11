@@ -32,7 +32,7 @@
         android:id="@+id/pagerLayout">
 
         <!-- fullscreen pager for hosting the photo -->
-        <android.support.v4.view.ViewPager
+        <eu.nioc.tumblrbrowse.utils.HackyViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/pager"
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/fullscreen_photo"/>
 
-        </android.support.v4.view.ViewPager>
+        </eu.nioc.tumblrbrowse.utils.HackyViewPager>
 
         <!-- caption layout -->
         <LinearLayout
