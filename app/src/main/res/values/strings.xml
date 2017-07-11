@@ -1,6 +1,6 @@
 <resources>
     <!-- application -->
-    <string name="app_name">TumblrBrowse</string>
+    <string name="app_name">Tumblr Browse</string>
     <!-- photo dialog -->
     <string name="post_dialog_title">%s</string>
     <!-- account dialog -->
