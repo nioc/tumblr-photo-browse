@@ -29,11 +29,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import eu.nioc.tumblrbrowse.TumblrBrowse;
 import eu.nioc.tumblrbrowse.R;
+import eu.nioc.tumblrbrowse.TumblrBrowse;
 import eu.nioc.tumblrbrowse.adapters.BlogsListAdapter;
 import eu.nioc.tumblrbrowse.models.BlogElement;
-import eu.nioc.tumblrbrowse.services.FollowBlog;
 import eu.nioc.tumblrbrowse.services.GetTumblrBlogs;
 
 import static eu.nioc.tumblrbrowse.TumblrBrowse.TUMBLR_API_CONSUMER_KEY;
